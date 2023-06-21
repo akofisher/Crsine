@@ -1,0 +1,159 @@
+.thm-accordion {
+    margin-top: -10px;
+
+    &__item {
+        border: 1px solid $thm-border;
+        margin-top: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    &__title {
+        font-size: 18px;
+        font-weight: 600;
+        color: $thm-black;
+        position: relative;
+        padding-top: 19px;
+        padding-bottom: 24px;
+        cursor: pointer;
+        transition: all 500ms ease;
+    }
+
+    &__icon {
+        width: 14px;
+        height: 14px;
+        color: $thm-secondary;
+        position: absolute;
+        top: 50%;
+        right: 0px;
+        transform: translateY(-50%);
+
+        &::before {
+            content: '';
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            background-color: currentColor;
+            transition: all 500ms ease;
+        }
+
+        &::after {
+            content: '';
+            width: 2px;
+            height: 100%;
+            background-color: currentColor;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 500ms ease;
+        }
+    }
+
+    &__content {
+        font-size: 16px;
+        line-height: 32px;
+        margin-bottom: 25px;
+        margin-top: -10px;
+    }
+
+    &__item.active-item {
+        box-shadow: 0px 10px 60px 0px rgba(0, 0, 0, 0.05);
+
+        .thm-accordion__title {
+            color: $thm-base;
+        }
+
+        .thm-accordion__icon {
+            color: $thm-black;
+
+            &::after {
+                opacity: 0;
+            }
+        }
+
+    }
+}
+
+.faq-one {
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+    @include large-tablet {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    &__call {
+        background-color: $thm-black;
+        background-blend-mode: luminosity;
+        position: relative;
+        text-align: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 50px;
+
+        @include large-tablet {
+            margin-top: 0;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: $thm-black;
+            opacity: 0.9;
+        }
+
+        &-title,
+        &-text,
+        &-number,
+        &-title {
+            position: relative;
+        }
+
+        &-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+        }
+
+        &-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: $thm-text-dark;
+            margin: 0;
+            margin-bottom: 15px;
+            margin-top: 20px;
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &-number {
+            color: #fff;
+            font-size: 26px;
+            font-weight: 800;
+            display: block;
+            transition: all 500ms ease;
+            margin-bottom: 25px;
+
+            &:hover {
+                color: $thm-secondary;
+            }
+        }
+
+        .thm-btn {
+            position: relative;
+        }
+    }
+}

@@ -1,0 +1,282 @@
+.contact-one {
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+    @include large-tablet {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    &__text {
+        margin: 0;
+        font-size: 16px;
+        line-height: 32px;
+        color: $thm-color;
+        font-weight: 500;
+        margin-top: -12px;
+        margin-bottom: 30px;
+    }
+
+    &__address {
+        margin: 0;
+        color: $thm-color;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 36px;
+        margin-bottom: (60-17)*1px;
+    }
+
+    &__list {
+        margin: 0;
+
+        margin-bottom: 50px;
+
+        @include large-tablet {
+            margin-bottom: 0;
+        }
+
+        li {
+            +li {
+                margin-top: 6px;
+            }
+
+            a {
+                position: relative;
+                padding-left: 30px;
+                font-size: 20px;
+                font-weight: 500;
+                color: $thm-black;
+
+                >i {
+                    color: $thm-secondary;
+                    font-size: 17px;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 0;
+                }
+            }
+        }
+    }
+
+    &__form {
+        .row {
+            margin-left: -10px;
+            margin-right: -10px;
+
+            [class*=col-] {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+
+        textarea,
+        select,
+        input[type=text],
+        input[type=email] {
+            width: 100%;
+            height: 70px;
+            padding-left: 30px;
+            padding-right: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            color: $thm-color;
+            border: none;
+            outline: none;
+            display: block;
+            background-color: $thm-gray;
+            margin-bottom: 20px;
+        }
+
+        select {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><path fill="rgb(34, 36, 41)" d="M540.1 776.847l472.32-473.63c15.466-15.518 15.44-40.642-0.080-56.134-15.518-15.48-40.656-15.44-56.134 0.080l-444.208 445.438-444.206-445.454c-15.48-15.518-40.602-15.558-56.122-0.080-7.78 7.766-11.67 17.94-11.67 28.114 0 10.148 3.864 20.282 11.59 28.034l472.308 473.632c7.436 7.474 17.556 11.668 28.1 11.668s20.652-4.206 28.102-11.668z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: right 30px top 50%;
+            background-size: .65em auto;
+        }
+
+        textarea {
+            height: 170px;
+            padding-top: 15px;
+        }
+
+        ::placeholder {
+            color: inherit;
+            opacity: 1;
+        }
+
+        .thm-btn {
+            font-size: 18px;
+            font-weight: 800;
+            padding: 20px 48px;
+
+            &:hover {
+                background-color: $thm-black;
+                color: #fff;
+            }
+        }
+    }
+}
+
+
+.online-booking {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    counter-reset: stepNumber;
+
+    @include large-tablet {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    .container+.container {
+        margin-top: 50px;
+    }
+
+    &__top {
+        @include tablet {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-direction: row-reverse;
+        }
+    }
+
+    &__count {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 800;
+        counter-increment: stepNumber;
+        background-color: $thm-base;
+        border-radius: 50%;
+        margin-bottom: 30px;
+
+        &::before {
+            content: counters(stepNumber, ".", decimal-leading-zero);
+        }
+
+    }
+
+    &__extra {
+        &-item {
+            background-color: $thm-gray;
+            margin-bottom: 10px;
+            padding: 30px;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            @include tablet {
+                display: flex;
+                align-items: center;
+            }
+
+            @include large-tablet {
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+        }
+
+        &-title {
+            margin: 0;
+            color: $thm-black;
+            font-size: 20px;
+            font-weight: 800;
+
+            a {
+                color: inherit;
+                transition: all 500ms ease;
+
+                &:hover {
+                    color: $thm-primary;
+                }
+            }
+        }
+
+        &-list {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            margin-bottom: 0;
+
+            @include tablet {
+                margin-top: 0;
+                margin-left: auto;
+            }
+
+            li {
+                display: flex;
+                align-items: center;
+                font-size: 15px;
+                color: $thm-color;
+                margin-right: 10px;
+
+                @include tablet {
+                    margin-right: 20px;
+                }
+
+                @include laptop {
+                    margin-right: 50px;
+                }
+
+                >i {
+                    font-size: 16px;
+                    color: $thm-secondary;
+                    margin-right: 10px;
+                }
+
+                &:last-of-type {
+                    flex: 0 0 100%;
+                    margin-right: 0;
+
+                    @include tablet {
+                        flex: 0 0 auto;
+                    }
+                }
+
+                .thm-btn {
+                    margin-top: 10px;
+
+                    @include tablet {
+                        margin-top: 0;
+                    }
+
+                    &:hover {
+                        background-color: $thm-black;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    &__price-row {
+        --bs-gutter-y: 30px;
+    }
+
+    .pricing-one__tab-title-item::before {
+        display: none;
+    }
+
+    .pricing-one__tab-title {
+        margin-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        max-width: 100%;
+
+        @include tablet {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+}

@@ -1,0 +1,102 @@
+.video-one {
+  position: relative;
+  margin-bottom: 50px;
+  display: inline-block;
+
+  @include laptop {
+    position: absolute;
+    top: 100px;
+    left: -220px;
+  }
+
+  @include large-laptop {
+    left: -160px;
+  }
+
+  @media(min-width: 1700px) {
+    left: -30px;
+  }
+
+  @media(min-width: 1800px) {
+    left: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  &__content {
+    background-color: $thm-base;
+    text-align: center;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    @include tablet {
+      top: auto;
+      left: auto;
+      bottom: 0;
+      right: 0;
+      width: 308px;
+      height: 249px;
+    }
+  }
+
+  &__text {
+    margin: 0;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 500;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+
+    @include tablet {
+      margin-top: 0;
+      text-align: left;
+      max-width: 180px;
+      font-size: 30px;
+      font-weight: 500;
+      padding-left: 0;
+      padding-right: 0;
+      line-height: 1.3;
+    }
+  }
+
+  .video-popup {
+    width: 80px;
+    height: 80px;
+    background-color: $thm-secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 500ms ease;
+
+    &:hover {
+      background-color: $thm-black;
+      color: #fff;
+    }
+
+    @include tablet {
+      position: absolute;
+      bottom: 100%;
+      right: 100%;
+      width: 162px;
+      height: 147px;
+      font-size: 30px;
+    }
+  }
+}
