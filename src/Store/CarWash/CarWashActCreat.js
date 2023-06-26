@@ -1,11 +1,14 @@
 import {
   REMOVE_ADDRESS,
   SET_ABOUT,
+  SET_BOOKINGS,
   SET_CAR_TYPES,
   SET_CHOOSEN_PACKET,
   SET_CHOOSEN_SUB_PACKET,
+  SET_NEWS,
   SET_PACKETS,
   SET_SERVICES,
+  SET_SLIDER_PHOTOS,
   SET_SUB_PACKETS,
   SET_TIMES,
 } from './CarWashActions.js'
@@ -51,6 +54,27 @@ export const setServices = (services) => {
     payload: services,
   }
 }
+
+export const setBookings = (bookings) => {
+  return {
+    type: SET_BOOKINGS,
+    payload: bookings,
+  }
+}
+export const setNews = (news) => {
+  return {
+    type: SET_NEWS,
+    payload: news,
+  }
+}
+
+export const setSliderPhotos = (sliderPhotos) => {
+  return {
+    type: SET_SLIDER_PHOTOS,
+    payload: sliderPhotos,
+  }
+}
+
 export const setChoosenPacket = (choosenPacket) => {
   return {
     type: SET_CHOOSEN_PACKET,

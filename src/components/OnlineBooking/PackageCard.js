@@ -1,13 +1,24 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setChoosenPacket } from '../../Store/CarWash/CarWashActCreat'
-import { selectChoosenPacket } from '../../Store/CarWash/CarWashSelector'
+import {
+  selectChoosenPacket,
+  selectChoosenSubPacket,
+} from '../../Store/CarWash/CarWashSelector'
 
 const PackageCard = ({ data }) => {
   const [choosen, setChoosen] = useState(false)
   const dispatch = useDispatch()
   const choosenOrNo = useSelector(selectChoosenPacket)
+  const CHOOSEN_SUB_PACKET = useSelector(selectChoosenSubPacket)
   console.log(choosenOrNo, 'CHOOSEN')
+
+  useEffect(() => {
+    if (CHOOSEN_SUB_PACKET.length > 0 && choosenOrNo == false) {
+      window.location.reload()
+    }
+  }, [choosenOrNo])
+
   return (
     <div className="col-md-12 col-lg-4">
       <div className="price-card">

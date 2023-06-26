@@ -7,3 +7,6 @@ export const selectServices = (state) => state.services.services
 export const selectChoosenSubPacket = (state) =>
   state.choosenSubPacket.choosenSubPacket
 export const selectChoosenPacket = (state) => state.choosenPacket.choosenPacket
+export const selectBookings = (state) => state.bookings.bookings
+export const selectNews = (state) => state.news.news
+export const selectSliderPhotos = (state) => state.sliderPhotos.sliderPhotos

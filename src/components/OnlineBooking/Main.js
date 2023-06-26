@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { API } from '../../API'
 import {
   setCarTypes,
+  setChoosenPacket,
+  setChoosenSubPacket,
   setPackets,
   setSubPackets,
   setTimes,
@@ -20,7 +22,6 @@ import BGPh1 from '../../assets/images/backgrounds/page-header-bg-1-1.jpg'
 import api from '../../useApiCall'
 import ExtraServiceCard from './ExtraServiceCard'
 import PackageCard from './PackageCard'
-
 
 const OnlineBooking = () => {
   const [tabMenu, tabActive] = useState({ hatchback: true, UID: 1 })
@@ -43,19 +44,27 @@ const OnlineBooking = () => {
   const ChoosenSubPacket = useSelector(selectChoosenSubPacket)
   let sum = 0
   let totalTime = 0
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [calculate, setCalculate] = useState(false)
 
   const SumPrice = () => {
-    if (ChoosenSubPacket !== null && ChoosenSubPacket !== undefined) {
+    if (
+      ChoosenSubPacket !== null &&
+      ChoosenSubPacket !== undefined &&
+      ChoosenPacket !== NaN
+    ) {
       sum = ChoosenSubPacket.reduce(
         (total, num) => Number(total) + Number(num.PRICE),
         0,
       )
       console.log(sum + Number(ChoosenPacket.PRICE), 'SUM')
+    } else {
+      sum = 0
     }
   }
   useEffect(() => {
     SumPrice()
-  }, [sum, ChoosenSubPacket])
+  }, [sum, ChoosenSubPacket, ChoosenPacket])
 
   useEffect(() => {
     SumTime()
@@ -78,42 +87,49 @@ const OnlineBooking = () => {
   }
 
   const PlaceOrder = async () => {
-    try {
-      const url = API
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ApiMethod: 'PlaceOrder',
-          controller: 'Orders',
-          pars: {
-            USER_NAME: user,
-            USER_EMAIL: email,
-            USER_PHONE: phone,
-            CAR_BRAND: brand,
-            CAR_MODEL: model,
-            BOOKED_TIME: time,
-            USER_ADDRESS: address,
-            USER_MESSAGE: mesage,
-            CAR_TYPE: tabMenu.UID,
-            CHOOSEN_PACKET: ChoosenPacket.UID,
-            CHOOSEN_SUB_PACKET: ChoosenSubPacket,
-            ORDER_TOTAL_TIME: totalTime + Number(ChoosenPacket.TIME),
-            ORDER_TOTAL: sum + Number(ChoosenPacket.PRICE),
+    await SumPrice()
+    await SumTime()
+    console.log(sum + Number(ChoosenPacket.PRICE), 'TOTAL')
+    if (Number(ChoosenPacket.PRICE) > 0) {
+      try {
+        const url = API
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        }),
+          body: JSON.stringify({
+            ApiMethod: 'PlaceOrder',
+            controller: 'Orders',
+            pars: {
+              USER_NAME: user,
+              USER_EMAIL: email,
+              USER_PHONE: phone,
+              CAR_BRAND: brand,
+              CAR_MODEL: model,
+              BOOKED_TIME: time,
+              USER_ADDRESS: address,
+              USER_MESSAGE: mesage,
+              CAR_TYPE: tabMenu.UID,
+              CHOOSEN_PACKET: ChoosenPacket.UID,
+              CHOOSEN_SUB_PACKET: ChoosenSubPacket,
+              ORDER_TOTAL_TIME: totalTime + Number(ChoosenPacket.TIME),
+              ORDER_TOTAL: sum + Number(ChoosenPacket.PRICE),
+            },
+          }),
+        }
+        const responseData = await api.fetchData(url, options)
+        if (responseData.status == 'success') {
+          console.log(responseData, 'YES')
+        } else {
+        }
+      } catch (error) {
+        setError(error.message)
       }
-      const responseData = await api.fetchData(url, options)
-      if (responseData.status == 'success') {
-
-      } else {
-
-      }
-    } catch (error) {
-      setError(error.message)
+    } else {
+      alert('Please choose pricing plan')
     }
+
     // console.log(user, 'user')
     // console.log(email, 'email')
     // console.log(phone, 'phone')
@@ -125,6 +141,27 @@ const OnlineBooking = () => {
     // console.log(tabMenu.UID, 'car type')
     // console.log(ChoosenPacket, 'packet')
     // console.log(ChoosenSubPacket, 'sub Packet')
+  }
+
+  const TotalPricetFunc = () => {
+    if (Number(sum) > 0 && Number(ChoosenPacket.PRICE) > 0) {
+      setTotalPrice(Number(sum) + Number(ChoosenPacket.PRICE))
+      console.log('pirveli')
+    } else if (Number(sum) <= 0 && Number(ChoosenPacket.PRICE) > 0) {
+      setTotalPrice(Number(ChoosenPacket.PRICE))
+      console.log('meore')
+    } else if (Number(sum) <= 0 && Number(ChoosenPacket.PRICE) <= 0) {
+      setTotalPrice(0)
+      console.log('mesame')
+    } else if (Number(sum) > 0 && Number(ChoosenPacket.PRICE) <= 0) {
+      setTotalPrice(Number(sum))
+      console.log('meotxe')
+    } else if (Number(sum) === NaN && Number(ChoosenPacket.PRICE) > 0) {
+      setTotalPrice(Number(ChoosenPacket.PRICE))
+      console.log('mexute')
+    } else {
+      setTotalPrice(0)
+    }
   }
 
   const fetchTime = async () => {
@@ -146,7 +183,6 @@ const OnlineBooking = () => {
       if (responseData.status == 'success') {
         setIsLoading(false)
         dispatch(setTimes(responseData.data))
-
       } else {
         setIsLoading(true)
       }
@@ -172,7 +208,6 @@ const OnlineBooking = () => {
       }
       const responseData = await api.fetchData(url, options)
       if (responseData.status == 'success') {
-
         dispatch(setCarTypes(responseData.data))
         setIsLoading(false)
       } else {
@@ -203,17 +238,12 @@ const OnlineBooking = () => {
       } else {
         dispatch(setPackets([]))
       }
-
     } catch (error) {
       setError(error.message)
     }
   }
 
-
-
-
   const fetchSubPackets = async (id) => {
-
     try {
       const url = API
       const options = {
@@ -241,11 +271,8 @@ const OnlineBooking = () => {
     fetchPackets(tabMenu.UID)
     fetchSubPackets(tabMenu.UID)
 
-    return () => { }
-
+    return () => {}
   }, [tabMenu.UID])
-
-
 
   useEffect(() => {
     const FetchDatas = async () => {
@@ -253,10 +280,12 @@ const OnlineBooking = () => {
       await fetchCarTypes()
     }
     FetchDatas()
-    return () => { }
+    return () => {}
   }, [])
 
-
+  useEffect(() => {
+    TotalPricetFunc()
+  }, [ChoosenPacket, ChoosenSubPacket])
 
   return (
     <>
@@ -296,49 +325,91 @@ const OnlineBooking = () => {
 
             <ul className="pricing-one__tab-title list-unstyled">
               <li
-                className={`pricing-one__tab-title-item ${tabMenu.hatchback && 'active-item'
-                  }`}
-                onClick={() => tabActive({ hatchback: true, UID: 1 })}
+                className={`pricing-one__tab-title-item ${
+                  tabMenu.hatchback && 'active-item'
+                }`}
+                onClick={() => {
+                  if (ChoosenSubPacket.length > 0) {
+                    dispatch(setChoosenPacket({}))
+                    dispatch(setChoosenSubPacket(...ChoosenSubPacket))
+                  }
+                  tabActive({ hatchback: true, UID: 1 })
+                }}
               >
                 <div className="hatchback"></div>
                 <p>Hatchback</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${tabMenu.sedan && 'active-item'
-                  }`}
-                onClick={() => tabActive({ sedan: true, UID: 2 })}
+                className={`pricing-one__tab-title-item ${
+                  tabMenu.sedan && 'active-item'
+                }`}
+                onClick={() => {
+                  if (ChoosenSubPacket.length > 0) {
+                    dispatch(setChoosenPacket({}))
+                    dispatch(setChoosenSubPacket(...ChoosenSubPacket))
+                  }
+                  tabActive({ sedan: true, UID: 2 })
+                }}
               >
                 <div className="sedan"></div>
                 <p>Sedan</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${tabMenu.minivan && 'active-item'
-                  }`}
-                onClick={() => tabActive({ minivan: true, UID: 3 })}
+                className={`pricing-one__tab-title-item ${
+                  tabMenu.minivan && 'active-item'
+                }`}
+                onClick={() => {
+                  if (ChoosenSubPacket.length > 0) {
+                    dispatch(setChoosenPacket({}))
+                    dispatch(setChoosenSubPacket(...ChoosenSubPacket))
+                  }
+                  tabActive({ minivan: true, UID: 3 })
+                }}
               >
                 <div className="minivan"></div>
                 <p>Minivan</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${tabMenu.microbus && 'active-item'
-                  }`}
-                onClick={() => tabActive({ microbus: true, UID: 4 })}
+                className={`pricing-one__tab-title-item ${
+                  tabMenu.microbus && 'active-item'
+                }`}
+                onClick={() => {
+                  if (ChoosenSubPacket.length > 0) {
+                    dispatch(setChoosenPacket({}))
+                    dispatch(setChoosenSubPacket(...ChoosenSubPacket))
+                  }
+                  tabActive({ microbus: true, UID: 4 })
+                }}
               >
                 <div className="microbus"></div>
                 <p>Microbus</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${tabMenu.jeep && 'active-item'
-                  }`}
-                onClick={() => tabActive({ jeep: true, UID: 5 })}
+                className={`pricing-one__tab-title-item ${
+                  tabMenu.jeep && 'active-item'
+                }`}
+                onClick={() => {
+                  if (ChoosenSubPacket.length > 0) {
+                    dispatch(setChoosenPacket({}))
+                    dispatch(setChoosenSubPacket(...ChoosenSubPacket))
+                  }
+                  tabActive({ jeep: true, UID: 5 })
+                }}
               >
                 <div className="jeep"></div>
                 <p>Jeep</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${tabMenu.suv && 'active-item'
-                  }`}
-                onClick={() => tabActive({ suv: true, UID: 6 })}
+                className={`pricing-one__tab-title-item ${
+                  tabMenu.suv && 'active-item'
+                }`}
+                onClick={() => {
+                  if (ChoosenSubPacket.length > 0) {
+                    dispatch(setChoosenPacket({}))
+                    dispatch(setChoosenSubPacket(...ChoosenSubPacket))
+                  }
+                  tabActive({ suv: true, UID: 6 })
+                }}
               >
                 <div className="suv"></div>
                 <p>Suv</p>
@@ -364,13 +435,15 @@ const OnlineBooking = () => {
                 className={`tab-box__content `}
               > */}
               <div className="row">
-                {packets.length > 0 ? packets.map((val, idx) => (
-                  <PackageCard data={val} key={val.UID} />
-                )) : <p className='NoService'>No Services for this time</p>}
+                {packets.length > 0 ? (
+                  packets.map((val, idx) => (
+                    <PackageCard data={val} key={val.UID} />
+                  ))
+                ) : (
+                  <p className="NoService">No Services for this time</p>
+                )}
               </div>
               {/* </div> */}
-
-
             </div>
           </div>
 
@@ -384,9 +457,13 @@ const OnlineBooking = () => {
             </div>
 
             <div className="online-booking__extra">
-              {subPackets.length > 0 ? subPackets.map((val, idx) => (
-                <ExtraServiceCard data={val} key={val.UID} />
-              )) : <p className='NoService'>No Services for this time</p>}
+              {subPackets.length > 0 ? (
+                subPackets.map((val, idx) => (
+                  <ExtraServiceCard data={val} key={val.UID} />
+                ))
+              ) : (
+                <p className="NoService">No Services for this time</p>
+              )}
             </div>
           </div>
 
@@ -415,6 +492,7 @@ const OnlineBooking = () => {
                     type="text"
                     placeholder="Your Name"
                     name="name"
+                    required
                   />
                 </div>
                 <div className="col-md-6 col-lg-4">
@@ -423,6 +501,7 @@ const OnlineBooking = () => {
                     type="email"
                     placeholder="Email Address"
                     name="email"
+                    required
                   />
                 </div>
                 <div className="col-md-6 col-lg-4">
@@ -431,6 +510,7 @@ const OnlineBooking = () => {
                     type="text"
                     placeholder="Phone Number"
                     name="phone"
+                    required
                   />
                 </div>
                 <div className="col-md-6 col-lg-4">
@@ -439,6 +519,7 @@ const OnlineBooking = () => {
                     type="text"
                     placeholder="Vehicle Brand"
                     name="Vehicle Brand"
+                    required
                   />
                   {/* <select>
                                         <option value="">Vehicle Make</option>
@@ -453,6 +534,7 @@ const OnlineBooking = () => {
                     type="text"
                     placeholder="Vehicle Model"
                     name="Vehicle Model"
+                    required
                   />
                   {/* <select>
                                         <option value="">Vehicle Model</option>
@@ -462,7 +544,7 @@ const OnlineBooking = () => {
                                     </select> */}
                 </div>
                 <div className="col-md-6 col-lg-4">
-                  <select onChange={(e) => setTime(e.target.value)}>
+                  <select required onChange={(e) => setTime(e.target.value)}>
                     {freeTimes.map((val) => (
                       <option key={val.UID} value={val.UID}>
                         {val.FREE_TIME}
@@ -477,6 +559,7 @@ const OnlineBooking = () => {
                     type="text"
                     placeholder="Address"
                     name="address"
+                    required
                   />
                 </div>
                 <div className="col-md-12">
@@ -497,7 +580,9 @@ const OnlineBooking = () => {
           </div>
         </section>
       </div>
-
+      <div className="priceCont">
+        <pre className="priceText">Total - {totalPrice}$</pre>
+      </div>
       {/* <Link to="#" data-target="html" className="scroll-to-target scroll-to-top"><i className="fa fa-angle-up"></i></Link> */}
     </>
   )

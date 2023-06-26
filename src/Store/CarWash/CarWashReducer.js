@@ -1,11 +1,14 @@
 import {
   REMOVE_ADDRESS,
   SET_ABOUT,
+  SET_BOOKINGS,
   SET_CAR_TYPES,
   SET_CHOOSEN_PACKET,
   SET_CHOOSEN_SUB_PACKET,
+  SET_NEWS,
   SET_PACKETS,
   SET_SERVICES,
+  SET_SLIDER_PHOTOS,
   SET_SUB_PACKETS,
   SET_TIMES,
 } from './CarWashActions.js'
@@ -19,6 +22,9 @@ const initialState = {
   services: [],
   choosenSubPacket: [],
   choosenPacket: [],
+  bookings: [],
+  news: [],
+  sliderPhotos: [],
 }
 
 export default function addressReducer(state = initialState, action) {
@@ -92,6 +98,27 @@ export default function addressReducer(state = initialState, action) {
       return {
         ...state,
         choosenPacket: action.payload,
+      }
+      break
+
+    case SET_BOOKINGS:
+      return {
+        ...state,
+        bookings: action.payload,
+      }
+      break
+
+    case SET_NEWS:
+      return {
+        ...state,
+        news: action.payload,
+      }
+      break
+
+    case SET_SLIDER_PHOTOS:
+      return {
+        ...state,
+        sliderPhotos: action.payload,
       }
       break
 

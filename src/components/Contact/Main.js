@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { selectAbout } from '../../Store/CarWash/CarWashSelector'
 import BGPh1 from '../../assets/images/backgrounds/page-header-bg-1-1.jpg'
 
 const Contact = () => {
+  const CONTACT = useSelector(selectAbout)
+
+  useEffect(() => {}, [CONTACT])
   return (
     <>
       <div className="stricky-header stricked-menu main-menu">
@@ -51,19 +56,21 @@ const Contact = () => {
                 </p>
                 <ul className="contact-one__list list-unstyled">
                   <li>
-                    <Link to="mailto:needhelp@crsine.com">
-                      <i className="fa fa-envelope"></i>needhelp@crsine.com
+                    <Link to={`mailto:${CONTACT.EMAIL}`}>
+                      <i className="fa fa-envelope"></i>
+                      {CONTACT.EMAIL}
                     </Link>
                   </li>
                   <li>
-                    <Link to="tel:92-666-888-000">
-                      <i className="fa fa-phone-square-alt"></i>92 666 888 000
+                    <Link to={`tel:${CONTACT.PHONE}`}>
+                      <i className="fa fa-phone-square-alt"></i>
+                      {CONTACT.PHONE}
                     </Link>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="col-lg-8">
+            {/* <div className="col-lg-8">
               <form
                 action="assets/inc/sendemail.php"
                 className="contact-form-validated contact-one__form"
@@ -104,7 +111,7 @@ const Contact = () => {
                 </div>
               </form>
               <div className="result"></div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
