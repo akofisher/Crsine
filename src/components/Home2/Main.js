@@ -4,18 +4,28 @@ import { Link } from 'react-router-dom'
 import { Autoplay, Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { API } from '../../API'
-import { setSliderPhotos } from '../../Store/CarWash/CarWashActCreat'
+import {
+  setNews,
+  setServices,
+  setSliderPhotos,
+} from '../../Store/CarWash/CarWashActCreat'
 import {
   selectAbout,
+  selectNews,
+  selectServices,
   selectSliderPhotos,
 } from '../../Store/CarWash/CarWashSelector'
 import BGImg2 from '../../assets/images/backgrounds/main-slider-2-1.jpg'
 import api from '../../useApiCall'
+import NewsCard from './NewsCard'
+import ServiceCard from './ServiceCard'
 
 const Home2 = () => {
   const dispatch = useDispatch()
   const SliderPhotos = useSelector(selectSliderPhotos)
   const CONTACT = useSelector(selectAbout)
+  const SERVICES = useSelector(selectServices)
+  const NEWS = useSelector(selectNews)
   const [error, setError] = useState('')
   // const activeRef = useRef(null);
   // const active1Ref = useRef(null);
@@ -63,8 +73,62 @@ const Home2 = () => {
     }
   }
 
+  const fetchServiceList = async () => {
+    try {
+      const url = API
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ApiMethod: 'GetServiceList',
+          controller: 'Services',
+          pars: '',
+        }),
+      }
+      const responseData = await api.fetchData(url, options)
+      if (responseData.status == 'success') {
+        dispatch(setServices(responseData.data))
+      } else {
+        alert('დაფიქსირდა შეცდომა')
+      }
+      console.log(responseData.data, 'Services')
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
+  const fetchNewsList = async () => {
+    try {
+      const url = API
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ApiMethod: 'GetNewsList',
+          controller: 'Services',
+          pars: '',
+        }),
+      }
+      const responseData = await api.fetchData(url, options)
+      if (responseData.status == 'success') {
+        dispatch(setNews(responseData.data))
+      } else {
+        alert('დაფიქსირდა შეცდომა')
+      }
+      console.log(responseData.data, 'News')
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
   useEffect(() => {
     fetchSliderPhotos()
+    fetchServiceList()
+    fetchNewsList()
   }, [])
 
   return (
@@ -239,81 +303,9 @@ const Home2 = () => {
           </div>
 
           <div className="row ">
-            <div className="col-sm-12 col-md-12 col-lg-4">
-              <div className="service-card">
-                <div className="service-card__image">
-                  <img src="assets/images/services/service-1-1.jpg" alt="" />
-                  <Link to="/servicedetails">
-                    <i className="crsine-plus"></i>
-                  </Link>
-                </div>
-                <div className="service-card__content">
-                  <div className="service-card__icon">
-                    <i className=" crsine-car-service-1"></i>
-                  </div>
-                  <h3 className="service-card__title">
-                    <Link to="/servicedetails">Full Service Wash</Link>
-                  </h3>
-                  <p className="service-card__text">
-                    There are not many of passages of lorem ipsum avail isn
-                    alteration donationa in form.
-                  </p>
-                  <Link to="/servicedetails" className="service-card__more">
-                    <i className="crsine-right-arrow"></i>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-12 col-md-12 col-lg-4">
-              <div className="service-card">
-                <div className="service-card__image">
-                  <img src="assets/images/services/service-1-2.jpg" alt="" />
-                  <Link to="/servicedetails">
-                    <i className="crsine-plus"></i>
-                  </Link>
-                </div>
-                <div className="service-card__content">
-                  <div className="service-card__icon">
-                    <i className="crsine-car-service-2"></i>
-                  </div>
-                  <h3 className="service-card__title">
-                    <Link to="/servicedetails">Auto Detailing</Link>
-                  </h3>
-                  <p className="service-card__text">
-                    There are not many of passages of lorem ipsum avail isn
-                    alteration donationa in form.
-                  </p>
-                  <Link to="/servicedetails" className="service-card__more">
-                    <i className="crsine-right-arrow"></i>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-12 col-md-12 col-lg-4">
-              <div className="service-card">
-                <div className="service-card__image">
-                  <img src="assets/images/services/service-1-3.jpg" alt="" />
-                  <Link to="/servicedetails">
-                    <i className="crsine-plus"></i>
-                  </Link>
-                </div>
-                <div className="service-card__content">
-                  <div className="service-card__icon">
-                    <i className="crsine-car-wash"></i>
-                  </div>
-                  <h3 className="service-card__title">
-                    <Link to="/servicedetails">Express Interior</Link>
-                  </h3>
-                  <p className="service-card__text">
-                    There are not many of passages of lorem ipsum avail isn
-                    alteration donationa in form.
-                  </p>
-                  <Link to="/servicedetails" className="service-card__more">
-                    <i className="crsine-right-arrow"></i>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            {SERVICES.length > 0
+              ? SERVICES.map((val, idx) => <ServiceCard key={idx} val={val} />)
+              : null}
           </div>
         </div>
       </section>
@@ -832,120 +824,9 @@ const Home2 = () => {
           </div>
 
           <div className="row">
-            <div className="col-sm-12 col-md-6 col-lg-4">
-              <div className="blog-card">
-                <div className="blog-card__image">
-                  <img src="assets/images/blog/blog-1-1.png" alt="" />
-                  <Link to="/newsdetails"></Link>
-                </div>
-                <div className="blog-card__content">
-                  <div className="blog-card__date">20 Jan</div>
-                  {/* <ul className="list-unstyled blog-card__meta">
-                                        <li className="blog-card__meta-item">
-                                            <Link to="#">
-                                                <i className="far fa-user-circle"></i>
-                                                by Admin
-                                            </Link>
-                                        </li>
-                                        <li className="blog-card__meta-item">
-                                            <Link to="#">
-                                                <i className="far fa-comments"></i>
-                                                2 Comments
-                                            </Link>
-                                        </li>
-                                    </ul> */}
-                  <h3 className="blog-card__title">
-                    <Link to="/newsdetails">
-                      Get Some Useful Car Service Tips
-                    </Link>
-                  </h3>
-                  <p className="blog-card__text">
-                    Lorem ipsum is simply free text used by copytyping
-                    refreshing.
-                  </p>
-                  <Link to="/newsdetails" className="blog-card__more">
-                    Read More
-                    <i className="far fa-arrow-alt-circle-right"></i>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-12 col-md-6 col-lg-4">
-              <div className="blog-card">
-                <div className="blog-card__image">
-                  <img src="assets/images/blog/blog-1-2.png" alt="" />
-                  <Link to="/newsdetails"></Link>
-                </div>
-                <div className="blog-card__content">
-                  <div className="blog-card__date">20 Jan</div>
-                  {/* <ul className="list-unstyled blog-card__meta">
-                                        <li className="blog-card__meta-item">
-                                            <Link to="#">
-                                                <i className="far fa-user-circle"></i>
-                                                by Admin
-                                            </Link>
-                                        </li>
-                                        <li className="blog-card__meta-item">
-                                            <Link to="#">
-                                                <i className="far fa-comments"></i>
-                                                2 Comments
-                                            </Link>
-                                        </li>
-                                    </ul> */}
-                  <h3 className="blog-card__title">
-                    <Link to="/newsdetails">
-                      Get Some Useful Car Service Tips
-                    </Link>
-                  </h3>
-                  <p className="blog-card__text">
-                    Lorem ipsum is simply free text used by copytyping
-                    refreshing.
-                  </p>
-                  <Link to="/newsdetails" className="blog-card__more">
-                    Read More
-                    <i className="far fa-arrow-alt-circle-right"></i>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-12 col-md-6 col-lg-4">
-              <div className="blog-card">
-                <div className="blog-card__image">
-                  <img src="assets/images/blog/blog-1-3.png" alt="" />
-                  <Link to="/newsdetails"></Link>
-                </div>
-                <div className="blog-card__content">
-                  <div className="blog-card__date">20 Jan</div>
-                  {/* <ul className="list-unstyled blog-card__meta">
-                                        <li className="blog-card__meta-item">
-                                            <Link to="#">
-                                                <i className="far fa-user-circle"></i>
-                                                by Admin
-                                            </Link>
-                                        </li>
-                                        <li className="blog-card__meta-item">
-                                            <Link to="#">
-                                                <i className="far fa-comments"></i>
-                                                2 Comments
-                                            </Link>
-                                        </li>
-                                    </ul> */}
-                  <h3 className="blog-card__title">
-                    <Link to="/newsdetails">
-                      Get Some Useful Car Service Tips
-                    </Link>
-                  </h3>
-                  <p className="blog-card__text">
-                    Lorem ipsum is simply free text used by copytyping
-                    refreshing.
-                  </p>
-                  <Link to="/newsdetails" className="blog-card__more">
-                    Read More
-                    <i className="far fa-arrow-alt-circle-right"></i>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            {NEWS.length > 0
+              ? NEWS.map((val, idx) => <NewsCard val={val} key={idx} />)
+              : null}
           </div>
         </div>
       </section>

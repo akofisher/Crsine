@@ -128,9 +128,7 @@ export const Footer = () => {
         <div className="bottom-footer">
           <div className="container">
             <div className="bottom-footer__inner">
-              <p className="bottom-footer__text">
-                © Copyrights, 2021 Company.com
-              </p>
+              <p className="bottom-footer__text">© Copyrights, 2023</p>
               <p className="bottom-footer__text">
                 <Link to="#">Terms & Condition</Link>
                 <Link to="#">Privacy Policy</Link>

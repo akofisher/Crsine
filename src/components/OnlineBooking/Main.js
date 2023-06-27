@@ -90,7 +90,7 @@ const OnlineBooking = () => {
     await SumPrice()
     await SumTime()
     console.log(sum + Number(ChoosenPacket.PRICE), 'TOTAL')
-    if (Number(ChoosenPacket.PRICE) > 0) {
+    if (Number(ChoosenPacket.PRICE) > 0 && Number(ChoosenPacket.TIME) > 0) {
       try {
         const url = API
         const options = {

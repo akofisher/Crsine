@@ -67,8 +67,11 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="topbar__infos-item">
-                  <Link to="tel:92-666-888-0000" className="topbar__infos-link">
-                    <i className="fa fa-phone-alt"></i> 92 666 888 000
+                  <Link
+                    to={`tel:${CONTACT.PHONE}`}
+                    className="topbar__infos-link"
+                  >
+                    <i className="fa fa-phone-alt"></i> {CONTACT.PHONE}
                   </Link>
                 </li>
               </ul>

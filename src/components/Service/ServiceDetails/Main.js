@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { selectAbout } from '../../../Store/CarWash/CarWashSelector'
-import BGimg from '../../../assets/images/backgrounds/faq-sidebar-b.jpg'
 import BGPh1 from '../../../assets/images/backgrounds/page-header-bg-1-1.jpg'
 
 const ServiceDetails = () => {
@@ -58,7 +57,7 @@ const ServiceDetails = () => {
           <div className="container">
             <div className="row">
               <div className="col-lg-4">
-                <div className="service-details__menu">
+                {/* <div className="service-details__menu">
                   <h3 className="service-details__menu-title">Services</h3>
                   <ul className="list-unstyled service-details__menu-list">
                     <li>
@@ -81,10 +80,10 @@ const ServiceDetails = () => {
                       <Link to="/servicedetails">Engine Wash</Link>
                     </li>
                   </ul>
-                </div>
+                </div> */}
                 <div
                   className="faq-one__call"
-                  style={{ backgroundImage: `url(${BGimg})` }}
+                  style={{ backgroundColor: 'transaprent' }}
                 >
                   <h3 className="faq-one__call-title">Get Our Help</h3>
                   <p className="faq-one__call-text">

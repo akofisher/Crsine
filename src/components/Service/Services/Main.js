@@ -6,6 +6,7 @@ import { setServices } from '../../../Store/CarWash/CarWashActCreat'
 import { selectServices } from '../../../Store/CarWash/CarWashSelector'
 import BGPh1 from '../../../assets/images/backgrounds/page-header-bg-1-1.jpg'
 import api from '../../../useApiCall'
+import ServiceCard from '../../Home2/ServiceCard'
 
 const Services = () => {
   const services = useSelector(selectServices)
@@ -72,164 +73,19 @@ const Services = () => {
         <section className="service-one">
           <div className="container">
             <div className="row">
-              <div className="col-sm-12 col-md-6 col-lg-4">
-                <div className="service-card">
-                  <div className="service-card__image">
-                    <img src="assets/images/services/service-1-1.jpg" alt="" />
-                    <Link to="/servicedetails">
-                      <i className="crsine-plus"></i>
-                    </Link>
-                  </div>
-                  <div className="service-card__content">
-                    <div className="service-card__icon">
-                      <i className=" crsine-car-service-1"></i>
-                    </div>
-                    <h3 className="service-card__title">
-                      <Link to="/servicedetails">Full Service Wash</Link>
-                    </h3>
-                    <p className="service-card__text">
-                      There are not many of passages of lorem ipsum avail isn
-                      alteration donationa in form.
-                    </p>
-                    <Link to="/servicedetails" className="service-card__more">
-                      <i className="crsine-right-arrow"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-12 col-md-6 col-lg-4">
-                <div className="service-card">
-                  <div className="service-card__image">
-                    <img src="assets/images/services/service-1-2.jpg" alt="" />
-                    <Link to="/servicedetails">
-                      <i className="crsine-plus"></i>
-                    </Link>
-                  </div>
-                  <div className="service-card__content">
-                    <div className="service-card__icon">
-                      <i className="crsine-car-service-2"></i>
-                    </div>
-                    <h3 className="service-card__title">
-                      <Link to="/servicedetails">Auto Detailing</Link>
-                    </h3>
-                    <p className="service-card__text">
-                      There are not many of passages of lorem ipsum avail isn
-                      alteration donationa in form.
-                    </p>
-                    <Link to="/servicedetails" className="service-card__more">
-                      <i className="crsine-right-arrow"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-12 col-md-6 col-lg-4">
-                <div className="service-card">
-                  <div className="service-card__image">
-                    <img src="assets/images/services/service-1-3.jpg" alt="" />
-                    <Link to="/servicedetails">
-                      <i className="crsine-plus"></i>
-                    </Link>
-                  </div>
-                  <div className="service-card__content">
-                    <div className="service-card__icon">
-                      <i className="crsine-car-wash"></i>
-                    </div>
-                    <h3 className="service-card__title">
-                      <Link to="/servicedetails">Express Interior</Link>
-                    </h3>
-                    <p className="service-card__text">
-                      There are not many of passages of lorem ipsum avail isn
-                      alteration donationa in form.
-                    </p>
-                    <Link to="/servicedetails" className="service-card__more">
-                      <i className="crsine-right-arrow"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-12 col-md-6 col-lg-4">
-                <div className="service-card">
-                  <div className="service-card__image">
-                    <img src="assets/images/services/service-1-4.jpg" alt="" />
-                    <Link to="/servicedetails">
-                      <i className="crsine-plus"></i>
-                    </Link>
-                  </div>
-                  <div className="service-card__content">
-                    <div className="service-card__icon">
-                      <i className="crsine-car-service-5"></i>
-                    </div>
-                    <h3 className="service-card__title">
-                      <Link to="/servicedetails">Interior Polish</Link>
-                    </h3>
-                    <p className="service-card__text">
-                      There are not many of passages of lorem ipsum avail isn
-                      alteration donationa in form.
-                    </p>
-                    <Link to="/servicedetails" className="service-card__more">
-                      <i className="crsine-right-arrow"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-12 col-md-6 col-lg-4">
-                <div className="service-card">
-                  <div className="service-card__image">
-                    <img src="assets/images/services/service-1-5.jpg" alt="" />
-                    <Link to="/servicedetails">
-                      <i className="crsine-plus"></i>
-                    </Link>
-                  </div>
-                  <div className="service-card__content">
-                    <div className="service-card__icon">
-                      <i className="crsine-tire"></i>
-                    </div>
-                    <h3 className="service-card__title">
-                      <Link to="/servicedetails">Tire Shine</Link>
-                    </h3>
-                    <p className="service-card__text">
-                      There are not many of passages of lorem ipsum avail isn
-                      alteration donationa in form.
-                    </p>
-                    <Link to="/servicedetails" className="service-card__more">
-                      <i className="crsine-right-arrow"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-12 col-md-6 col-lg-4">
-                <div className="service-card">
-                  <div className="service-card__image">
-                    <img src="assets/images/services/service-1-6.jpg" alt="" />
-                    <Link to="/servicedetails">
-                      <i className="crsine-plus"></i>
-                    </Link>
-                  </div>
-                  <div className="service-card__content">
-                    <div className="service-card__icon">
-                      <i className="crsine-vacuum-cleaner"></i>
-                    </div>
-                    <h3 className="service-card__title">
-                      <Link to="/servicedetails">Engine Wash</Link>
-                    </h3>
-                    <p className="service-card__text">
-                      There are not many of passages of lorem ipsum avail isn
-                      alteration donationa in form.
-                    </p>
-                    <Link to="/servicedetails" className="service-card__more">
-                      <i className="crsine-right-arrow"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              {services.length > 0
+                ? services.map((val, idx) => (
+                    <ServiceCard val={val} key={idx} />
+                  ))
+                : null}
             </div>
 
-            <div className="service-one__load text-center">
+            {/* <div className="service-one__load text-center">
               <Link to="#" className="thm-btn">
                 Load More
                 <i className="fa fa-arrow-alt-circle-right"></i>
               </Link>
-            </div>
+            </div> */}
           </div>
         </section>
       </div>

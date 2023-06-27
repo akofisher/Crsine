@@ -45,15 +45,8 @@ const Contact = () => {
           <div className="row">
             <div className="col-lg-4">
               <div className="contact-one__content">
-                <p className="contact-one__text">
-                  There are many variations of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour.
-                </p>
-                <p className="contact-one__address">
-                  86 Road Broklyn Street, 600 <br />
-                  New York, USA
-                </p>
+                <p className="contact-one__text">{CONTACT.ABOUT_TEXT}</p>
+                <p className="contact-one__address">{CONTACT.ADDRESS}</p>
                 <ul className="contact-one__list list-unstyled">
                   <li>
                     <Link to={`mailto:${CONTACT.EMAIL}`}>
