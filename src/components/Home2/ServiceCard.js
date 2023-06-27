@@ -7,7 +7,10 @@ export default function ServiceCard({ val }) {
       <div className="service-card">
         <div className="service-card__image">
           <img src={val.SERVICE_IMAGE} alt="" />
-          <Link to="/servicedetails">
+          <Link
+            onClick={() => localStorage.setItem('ServiceId', val.UID)}
+            to="/servicedetails"
+          >
             <i className="crsine-plus"></i>
           </Link>
         </div>
@@ -16,10 +19,19 @@ export default function ServiceCard({ val }) {
             <i className=" crsine-car-service-1"></i>
           </div>
           <h3 className="service-card__title">
-            <Link to="/servicedetails">{val.SERVICE_NAME}</Link>
+            <Link
+              onClick={() => localStorage.setItem('ServiceId', val.UID)}
+              to="/servicedetails"
+            >
+              {val.SERVICE_NAME}
+            </Link>
           </h3>
           <p className="service-card__text">{val.SERVICE_DESCRIPTION}</p>
-          <Link to="/servicedetails" className="service-card__more">
+          <Link
+            onClick={() => localStorage.setItem('ServiceId', val.UID)}
+            to="/servicedetails"
+            className="service-card__more"
+          >
             <i className="crsine-right-arrow"></i>
           </Link>
         </div>

@@ -7,7 +7,10 @@ export default function NewsCard({ val }) {
       <div className="blog-card">
         <div className="blog-card__image">
           <img src={val.NEWS_IMAGE} alt="" />
-          <Link to="/newsdetails"></Link>
+          <Link
+            onClick={() => localStorage.setItem('NewsId', val.UID)}
+            to="/newsdetails"
+          ></Link>
         </div>
         <div className="blog-card__content">
           {/* <div className="blog-card__date">20 Jan</div> */}
@@ -26,10 +29,19 @@ export default function NewsCard({ val }) {
                                         </li>
                                     </ul> */}
           <h3 className="blog-card__title">
-            <Link to="/newsdetails">{val.NEWS_NAME}</Link>
+            <Link
+              onClick={() => localStorage.setItem('NewsId', val.UID)}
+              to="/newsdetails"
+            >
+              {val.NEWS_NAME}
+            </Link>
           </h3>
           <p className="blog-card__text">{val.NEWS_DESCRIPTION}</p>
-          <Link to="/newsdetails" className="blog-card__more">
+          <Link
+            onClick={() => localStorage.setItem('NewsId', val.UID)}
+            to="/newsdetails"
+            className="blog-card__more"
+          >
             Read More
             <i className="far fa-arrow-alt-circle-right"></i>
           </Link>

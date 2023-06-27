@@ -1,40 +1,89 @@
-import BGPh1 from '../../../assets/images/backgrounds/page-header-bg-1-1.jpg'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import React from 'react'
+import { API } from '../../../API'
+import BGPh1 from '../../../assets/images/backgrounds/page-header-bg-1-1.jpg'
+import api from '../../../useApiCall'
 
 const NewsDetails = () => {
-    return (
-        <>
-            <div className="page-wrapper">
+  const [news, setNews] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
+  let id = localStorage.getItem('NewsId')
 
-                <div className="stricky-header stricked-menu main-menu">
-                    <div className="sticky-header__content"></div>
+  const getNewsDetails = async () => {
+    setIsLoading(true)
+
+    try {
+      const url = API
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ApiMethod: 'GetNews',
+          controller: 'Services',
+          pars: {
+            NEWS_ID: id,
+          },
+        }),
+      }
+      const responseData = await api.fetchData(url, options)
+      // dispatch(setPackets(responseData.data))
+      console.log(responseData, 'news data')
+      if (responseData.status == 'success') {
+        setIsLoading(false)
+        setNews(responseData.data[0])
+        console.log(responseData, 'RESPONSE ABOUT')
+      } else {
+      }
+    } catch (error) {
+      setError(error.message)
+      console.log(error.message)
+    }
+  }
+
+  useEffect(() => {
+    getNewsDetails()
+  }, [id])
+
+  return (
+    <>
+      <div className="page-wrapper">
+        <div className="stricky-header stricked-menu main-menu">
+          <div className="sticky-header__content"></div>
+        </div>
+        <section className="page-header">
+          <div
+            className="page-header__bg"
+            style={{ backgroundImage: `url(${BGPh1})` }}
+          ></div>
+
+          <div className="container">
+            <h2>News Details</h2>
+            <ul className="thm-breadcrumb list-unstyled">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>/</li>
+              <li>
+                <span>News</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="blog-details">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 col-lg-12">
+                <div className="blog-card__image blog-details__image">
+                  <div className="blog-card__date">18 Nov</div>
+                  <img src={news.NEWS_IMAGE} className="img-fluid" alt="" />
                 </div>
-                <section className="page-header">
-                    <div className="page-header__bg" style={{ backgroundImage: `url(${BGPh1})` }}></div>
 
-                    <div className="container">
-                        <h2>News Details</h2>
-                        <ul className="thm-breadcrumb list-unstyled">
-                            <li><Link to="/">Home</Link></li>
-                            <li>/</li>
-                            <li><span>News</span></li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section className="blog-details">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 col-lg-12">
-                                <div className="blog-card__image blog-details__image">
-                                    <div className="blog-card__date">18 Nov</div>
-                                    <img src="assets/images/blog/blog-d-1-1.jpg" className="img-fluid" alt="" />
-                                </div>
-
-
-                                <div className="blog-details__content blog-card__content">
-                                    {/* <div className="blog-card__date">
+                <div className="blog-details__content blog-card__content">
+                  {/* <div className="blog-card__date">
                                         20 Jan
                                     </div>
                                     <ul className="list-unstyled blog-card__meta">
@@ -52,36 +101,10 @@ const NewsDetails = () => {
                                         </li>
                                     </ul> */}
 
-                                    <h3 className="blog-card__title">Get Some Useful Car Service Tips</h3>
-                                    <p>Lorem ipsum is simply free text used by copytyping refreshing. Neque porro est qui dolorem ipsum
-                                        quia
-                                        quaed inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Aelltes port
-                                        lacus
-                                        quis enim var sed efficitur turpis gilla sed sit amet finibus eros. Lorem Ipsum is simply dummy
-                                        text
-                                        of the printing and typesetting industry. Lorem Ipsum has been the ndustry standard dummy text
-                                        ever
-                                        since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
-                                        specimen book. It has survived not only five centuries. Lorem Ipsum is simply dummy text of the
-                                        new
-                                        design printng and type setting Ipsum Take a look at our round up of the best shows coming soon
-                                        to
-                                        your telly box has been the is industrys. Lorem Ipsum is simply dummy text of the printing and
-                                        typesetting industry. Lorem Ipsum has industr standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                                        survived
-                                        not only five centuries, but also the leap into electronic typesetting, remaining essentially
-                                        unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem
-                                        Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
-                                        including
-                                        versions of.</p>
-                                    <p>Neque porro est qui dolorem ipsum quia quaed inventore veritatis et quasi architecto beatae vitae
-                                        dicta sunt explicabo. Aelltes port lacus quis enim var sed efficitur turpis gilla sed sit amet
-                                        finibus eros. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum
-                                        has been the ndustry stan printer took a galley.</p>
-                                </div>
-                                {/* <div className="blog-details__meta">
+                  <h3 className="blog-card__title">{news.NEWS_NAME}</h3>
+                  <p>{news.NEWS_DESCRIPTION}</p>
+                </div>
+                {/* <div className="blog-details__meta">
                                     <p className="blog-details__tags"><span>Tags:</span><Link to="#">Car washing,</Link><Link to="#">Car
                                         washing</Link></p>
                                     <div className="blog-details__social">
@@ -91,7 +114,7 @@ const NewsDetails = () => {
                                         <Link to="#"><i className="fab fa-pinterest-p"></i></Link>
                                     </div>
                                 </div> */}
-                                {/* <div className="blog-author">
+                {/* <div className="blog-author">
                                     <div className="blog-author__image">
                                         <img src="assets/images/blog/blog-author-1-1.jpg" alt="" />
                                     </div>
@@ -136,7 +159,7 @@ const NewsDetails = () => {
                                         </div>
                                     </div>
                                 </div> */}
-                                {/* <div className="comment-form">
+                {/* <div className="comment-form">
                                     <h2>Leave a Comments</h2>
 
                                     <form action="assets/inc/sendemail.php" className="contact-one__form contact-form-validated">
@@ -162,9 +185,9 @@ const NewsDetails = () => {
                                         </div>
                                     </form>
                                 </div> */}
-                            </div>
-                            <div className="col-md-12 col-lg-4">
-                                {/* <div className="blog-sidebar">
+              </div>
+              <div className="col-md-12 col-lg-4">
+                {/* <div className="blog-sidebar">
                                     <div className="blog-sidebar__search">
                                         <form action="#">
                                             <input type="text" placeholder="Search" />
@@ -253,17 +276,15 @@ const NewsDetails = () => {
                                     </div>
 
                                 </div> */}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-
+              </div>
             </div>
+          </div>
+        </section>
+      </div>
 
-            {/* <Link to="#" data-target="html" className="scroll-to-target scroll-to-top"><i className="fa fa-angle-up"></i></Link> */}
-        </>
-    )
+      {/* <Link to="#" data-target="html" className="scroll-to-target scroll-to-top"><i className="fa fa-angle-up"></i></Link> */}
+    </>
+  )
 }
 
 export default NewsDetails

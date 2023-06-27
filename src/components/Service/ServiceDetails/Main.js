@@ -1,11 +1,54 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { API } from '../../../API'
 import { selectAbout } from '../../../Store/CarWash/CarWashSelector'
 import BGPh1 from '../../../assets/images/backgrounds/page-header-bg-1-1.jpg'
+import api from '../../../useApiCall'
 
 const ServiceDetails = () => {
   const CONTACT = useSelector(selectAbout)
+  const [service, setService] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
+  let id = localStorage.getItem('ServiceId')
+
+  const getServiceDetails = async () => {
+    setIsLoading(true)
+
+    try {
+      const url = API
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ApiMethod: 'GetService',
+          controller: 'Services',
+          pars: {
+            SERVICE_ID: id,
+          },
+        }),
+      }
+      const responseData = await api.fetchData(url, options)
+      // dispatch(setPackets(responseData.data))
+      console.log(responseData, 'news data')
+      if (responseData.status == 'success') {
+        setIsLoading(false)
+        setService(responseData.data[0])
+        console.log(responseData, 'RESPONSE ABOUT')
+      } else {
+      }
+    } catch (error) {
+      setError(error.message)
+      console.log(error.message)
+    }
+  }
+
+  useEffect(() => {
+    getServiceDetails()
+  }, [id])
   useEffect(() => {}, [CONTACT])
 
   const [clicked, setClicked] = useState(0)
@@ -87,8 +130,8 @@ const ServiceDetails = () => {
                 >
                   <h3 className="faq-one__call-title">Get Our Help</h3>
                   <p className="faq-one__call-text">
-                    Speak with a human to filling out a form? call corporate
-                    office and we will connect you with a team member.
+                    call corporate office and we will connect you with a team
+                    member.
                   </p>
                   <Link
                     to={`tel:${CONTACT.PHONE}`}
@@ -105,22 +148,16 @@ const ServiceDetails = () => {
 
               <div className="col-lg-8">
                 <div className="service-details__image">
-                  <img src="assets/images/services/service-d-1.jpg" alt="" />
+                  <img src={service.SERVICE_IMAGE} alt="" />
                 </div>
                 <div className="service-details__icon">
                   <i className="crsine-car"></i>
                 </div>
-                <h3 className="service-details__title">Auto Detailing</h3>
+                <h3 className="service-details__title">
+                  {service.SERVICE_NAME}
+                </h3>
                 <p className="service-details__text">
-                  Lorem ipsum is simply free text used by copytyping refreshing.
-                  Neque porro est qui dolorem ipsum quia quaed inventore
-                  veritatis et quasi architecto beatae vitae dicta sunt
-                  explicabo. Aelltes port lacus quis enim var sed efficitur
-                  turpis gilla sed sit amet finibus eros. Lorem Ipsum is simply
-                  dummy text of the printing and typesetting industry. Lorem
-                  Ipsum has been the ndustry standard dummy text ever since the
-                  1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book.
+                  {service.SERVICE_DESCRIPTION}
                 </p>
 
                 {/* <blockquote className="service-details__blockqoute">
