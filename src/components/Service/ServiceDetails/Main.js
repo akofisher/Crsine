@@ -51,25 +51,6 @@ const ServiceDetails = () => {
   }, [id])
   useEffect(() => {}, [CONTACT])
 
-  const [clicked, setClicked] = useState(0)
-  const faqs = [
-    {
-      question: 'Can I return the product after purchase?',
-      answer:
-        'There are many variations of passages of available but the majority have suffered alteration that some form by injected randomised words which don’t look even as slightly believable now. Phasellus mollis ac augue sed varius.',
-    },
-    {
-      question: 'Where should I incorporate my business?',
-      answer:
-        'There are many variations of passages of available but the majority have suffered alteration that some form by injected randomised words which don’t look even as slightly believable now. Phasellus mollis ac augue sed varius.',
-    },
-    {
-      question: 'How there are many variations of passages',
-      answer:
-        'There are many variations of passages of available but the majority have suffered alteration that some form by injected randomised words which don’t look even as slightly believable now. Phasellus mollis ac augue sed varius. ',
-    },
-  ]
-
   return (
     <>
       <div className="page-wrapper">

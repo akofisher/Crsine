@@ -3,13 +3,14 @@ import { Route, Routes } from 'react-router-dom'
 import About from '../components/About/Main'
 import Contact from '../components/Contact/Main'
 import Error from '../components/Error/Main'
-import Footer from '../components/Footer/Main'
-import Navbar from '../components/Navbar/Main'
 // import Home from '../components/Home/Main'
+import Footer from '../components/Footer/Main'
 import Home2 from '../components/Home2/Main'
+import Navbar from '../components/Navbar/Main'
 import NewsDetails from '../components/News/NewsDetails/Main'
 import NewsMain from '../components/News/NewsMain/Main'
 import OnlineBooking from '../components/OnlineBooking/Main'
+import Order from '../components/Order/Main'
 import ServiceDetails from '../components/Service/ServiceDetails/Main'
 import Services from '../components/Service/Services/Main'
 
@@ -32,6 +33,8 @@ const Routing = () => {
         {/* <Route path="/pricing" element={<Pricing />} /> */}
         <Route path="/services" element={<Services />} />
         <Route path="/servicedetails" element={<ServiceDetails />} />
+        <Route path="/order=id" element={<Order />} />
+
         {/* <Route path="/shops" element={<Shops />} />
                 <Route path="/shopdetails" element={<ShopDetails />} /> */}
       </Routes>

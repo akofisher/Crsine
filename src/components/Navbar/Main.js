@@ -190,7 +190,7 @@ const Navbar = () => {
                 >
                   <i className="fa fa-bars"></i>
                 </Link>
-                <Link to="onlinebooking" className="thm-btn">
+                <Link to="/onlinebooking" className="thm-btn">
                   Online Booking
                   <i className="far fa-arrow-alt-circle-right"></i>
                 </Link>
@@ -200,7 +200,7 @@ const Navbar = () => {
         </nav>
       </header>
 
-      <div className={`search-popup ${search && 'active'}`}>
+      {/* <div className={`search-popup ${search && 'active'}`}>
         <div
           className="search-popup__overlay search-toggler"
           onClick={() => setsearch(false)}
@@ -220,9 +220,9 @@ const Navbar = () => {
             </button>
           </form>
         </div>
-      </div>
+      </div> */}
 
-      <div className={`mini-cart ${cart ? 'expanded' : ''}`}>
+      {/* <div className={`mini-cart ${cart ? 'expanded' : ''}`}>
         <div
           className="mini-cart__overlay mini-cart__toggler"
           onClick={() => setcart(false)}
@@ -299,7 +299,7 @@ const Navbar = () => {
             <i className="far fa-arrow-alt-circle-right"></i>
           </Link>
         </div>
-      </div>
+      </div> */}
 
       <div className={`mobile-nav__wrapper ${mobile ? 'expanded' : ''}`}>
         <div
