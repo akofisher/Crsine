@@ -13,6 +13,7 @@ import OnlineBooking from '../components/OnlineBooking/Main'
 import Order from '../components/Order/Main'
 import ServiceDetails from '../components/Service/ServiceDetails/Main'
 import Services from '../components/Service/Services/Main'
+import { ORDER } from './routes'
 
 const Routing = () => {
   return (
@@ -33,7 +34,7 @@ const Routing = () => {
         {/* <Route path="/pricing" element={<Pricing />} /> */}
         <Route path="/services" element={<Services />} />
         <Route path="/servicedetails" element={<ServiceDetails />} />
-        <Route path="/order=id" element={<Order />} />
+        <Route path={ORDER} element={<Order />} />
 
         {/* <Route path="/shops" element={<Shops />} />
                 <Route path="/shopdetails" element={<ShopDetails />} /> */}

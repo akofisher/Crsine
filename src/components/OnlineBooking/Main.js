@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { API } from '../../API'
 import {
   setCarTypes,
@@ -22,8 +22,10 @@ import BGPh1 from '../../assets/images/backgrounds/page-header-bg-1-1.jpg'
 import api from '../../useApiCall'
 import ExtraServiceCard from './ExtraServiceCard'
 import PackageCard from './PackageCard'
+import { ORDER } from '../../routes/routes'
 
 const OnlineBooking = () => {
+  const nav = useNavigate()
   const [tabMenu, tabActive] = useState({ hatchback: true, UID: 1 })
   const dispatch = useDispatch()
   const freeTimes = useSelector(selectTimes)
@@ -37,7 +39,7 @@ const OnlineBooking = () => {
   const [phone, setPhone] = useState('')
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')
-  const [time, setTime] = useState('')
+  const [time, setTime] = useState(freeTimes.length > 0 ? freeTimes[0].UID : '')
   const [address, setAddress] = useState('')
   const [mesage, setMesage] = useState('')
   const ChoosenPacket = useSelector(selectChoosenPacket)
@@ -120,8 +122,11 @@ const OnlineBooking = () => {
         }
         const responseData = await api.fetchData(url, options)
         if (responseData.status == 'success') {
+          // nav(ORDER.replace(':id', responseData.data))
+          nav(ORDER)
           console.log(responseData, 'YES')
         } else {
+          console.log(responseData, 'No')
         }
       } catch (error) {
         setError(error.message)
@@ -130,17 +135,17 @@ const OnlineBooking = () => {
       alert('Please choose pricing plan')
     }
 
-    // console.log(user, 'user')
-    // console.log(email, 'email')
-    // console.log(phone, 'phone')
-    // console.log(brand, 'brand')
-    // console.log(model, 'model')
-    // console.log(time, 'time')
-    // console.log(address, 'address')
-    // console.log(mesage, 'mesage')
-    // console.log(tabMenu.UID, 'car type')
-    // console.log(ChoosenPacket, 'packet')
-    // console.log(ChoosenSubPacket, 'sub Packet')
+    console.log(user, 'user')
+    console.log(email, 'email')
+    console.log(phone, 'phone')
+    console.log(brand, 'brand')
+    console.log(model, 'model')
+    console.log(time, 'time')
+    console.log(address, 'address')
+    console.log(mesage, 'mesage')
+    console.log(tabMenu.UID, 'car type')
+    console.log(ChoosenPacket, 'packet')
+    console.log(ChoosenSubPacket, 'sub Packet')
   }
 
   const TotalPricetFunc = () => {
@@ -271,7 +276,7 @@ const OnlineBooking = () => {
     fetchPackets(tabMenu.UID)
     fetchSubPackets(tabMenu.UID)
 
-    return () => {}
+    return () => { }
   }, [tabMenu.UID])
 
   useEffect(() => {
@@ -280,12 +285,17 @@ const OnlineBooking = () => {
       await fetchCarTypes()
     }
     FetchDatas()
-    return () => {}
+    return () => { }
   }, [])
 
   useEffect(() => {
     TotalPricetFunc()
   }, [ChoosenPacket, ChoosenSubPacket])
+
+  useEffect(() => {
+
+  }, [time, freeTimes])
+
 
   return (
     <>
@@ -325,9 +335,8 @@ const OnlineBooking = () => {
 
             <ul className="pricing-one__tab-title list-unstyled">
               <li
-                className={`pricing-one__tab-title-item ${
-                  tabMenu.hatchback && 'active-item'
-                }`}
+                className={`pricing-one__tab-title-item ${tabMenu.hatchback && 'active-item'
+                  }`}
                 onClick={() => {
                   if (ChoosenSubPacket.length > 0) {
                     dispatch(setChoosenPacket({}))
@@ -340,9 +349,8 @@ const OnlineBooking = () => {
                 <p>Hatchback</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${
-                  tabMenu.sedan && 'active-item'
-                }`}
+                className={`pricing-one__tab-title-item ${tabMenu.sedan && 'active-item'
+                  }`}
                 onClick={() => {
                   if (ChoosenSubPacket.length > 0) {
                     dispatch(setChoosenPacket({}))
@@ -355,9 +363,8 @@ const OnlineBooking = () => {
                 <p>Sedan</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${
-                  tabMenu.minivan && 'active-item'
-                }`}
+                className={`pricing-one__tab-title-item ${tabMenu.minivan && 'active-item'
+                  }`}
                 onClick={() => {
                   if (ChoosenSubPacket.length > 0) {
                     dispatch(setChoosenPacket({}))
@@ -370,9 +377,8 @@ const OnlineBooking = () => {
                 <p>Minivan</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${
-                  tabMenu.microbus && 'active-item'
-                }`}
+                className={`pricing-one__tab-title-item ${tabMenu.microbus && 'active-item'
+                  }`}
                 onClick={() => {
                   if (ChoosenSubPacket.length > 0) {
                     dispatch(setChoosenPacket({}))
@@ -385,9 +391,8 @@ const OnlineBooking = () => {
                 <p>Microbus</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${
-                  tabMenu.jeep && 'active-item'
-                }`}
+                className={`pricing-one__tab-title-item ${tabMenu.jeep && 'active-item'
+                  }`}
                 onClick={() => {
                   if (ChoosenSubPacket.length > 0) {
                     dispatch(setChoosenPacket({}))
@@ -400,9 +405,8 @@ const OnlineBooking = () => {
                 <p>Jeep</p>
               </li>
               <li
-                className={`pricing-one__tab-title-item ${
-                  tabMenu.suv && 'active-item'
-                }`}
+                className={`pricing-one__tab-title-item ${tabMenu.suv && 'active-item'
+                  }`}
                 onClick={() => {
                   if (ChoosenSubPacket.length > 0) {
                     dispatch(setChoosenPacket({}))
@@ -545,11 +549,14 @@ const OnlineBooking = () => {
                 </div>
                 <div className="col-md-6 col-lg-4">
                   <select required onChange={(e) => setTime(e.target.value)}>
-                    {freeTimes.map((val) => (
+                    <option>
+
+                    </option>
+                    {freeTimes.length > 0 ? freeTimes.map((val) => (
                       <option key={val.UID} value={val.UID}>
                         {val.FREE_TIME}
                       </option>
-                    ))}
+                    )) : null}
                   </select>
                   {/* <input type="text" placeholder="Date" name="date" /> */}
                 </div>

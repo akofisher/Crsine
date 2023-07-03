@@ -1,0 +1,135 @@
+.error-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    text-align: center;
+    position: relative;
+
+    @include large-tablet {
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    .image-layer {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 376px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-size: 100%;
+        width: 100%;
+
+        @include large-tablet {
+            top: 100px;
+            width: 938px;
+        }
+    }
+
+    .container {
+        position: relative;
+        z-index: 10;
+    }
+
+    &__title {
+        margin: 0;
+        font-weight: 800;
+        line-height: 1;
+        color: $thm-primary;
+        margin-top: 40px;
+
+        font-size: 100px;
+        margin-bottom: 10px;
+
+        @include tablet {
+            font-size: 180px;
+        }
+
+        @include large-tablet {
+            font-size: 240px;
+        }
+
+        @include laptop {
+            font-size: 400px;
+            margin-bottom: 52px;
+        }
+    }
+
+    &__subtitle {
+        margin: 0;
+        color: $thm-black;
+        font-weight: 800;
+
+        font-size: 30px;
+
+        @include tablet {
+            font-size: 36px;
+        }
+
+        @include laptop {
+            font-size: 44px;
+        }
+    }
+
+    &__text {
+        margin: 0;
+        font-weight: 500;
+        color: $thm-color;
+        font-size: 20px;
+        margin-top: 7px;
+    }
+
+    .search-form {
+        width: 100%;
+        max-width: 470px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        margin-top: 30px;
+        margin-bottom: 20px;
+
+        input[type=search],
+        input[type=text] {
+            width: 100%;
+            background-color: $thm-gray;
+            height: 84px;
+            border: none;
+            outline: none;
+            display: block;
+            font-weight: 600;
+            font-size: 16px;
+            color: $thm-color;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        button[type=submit] {
+            padding: 0;
+            width: auto;
+            border: none;
+            outline: none;
+            font-size: 24px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 30px;
+            color: $thm-base;
+            transition: all 500ms ease;
+
+            &:hover {
+                color: $thm-secondary;
+            }
+        }
+    }
+
+    .thm-btn {
+        font-size: 18px;
+        font-weight: 800;
+        padding: 20px 48px;
+
+        &:hover {
+            background-color: $thm-black;
+            color: #fff;
+        }
+    }
+}
