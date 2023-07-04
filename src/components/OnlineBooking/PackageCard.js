@@ -11,7 +11,6 @@ const PackageCard = ({ data }) => {
   const dispatch = useDispatch()
   const choosenOrNo = useSelector(selectChoosenPacket)
   const CHOOSEN_SUB_PACKET = useSelector(selectChoosenSubPacket)
-  console.log(choosenOrNo, 'CHOOSEN')
 
   useEffect(() => {
     if (CHOOSEN_SUB_PACKET.length > 0 && choosenOrNo == false) {

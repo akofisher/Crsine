@@ -31,7 +31,7 @@ const Home2 = () => {
   // const active1Ref = useRef(null);
   // const active2Ref = useRef(null);
 
-  useEffect(() => {}, [CONTACT])
+  useEffect(() => { }, [CONTACT])
 
   useEffect(() => {
     // jarallax(activeRef.current, {
@@ -43,7 +43,6 @@ const Home2 = () => {
     // jarallax(active2Ref.current, {
     //     speed: 0.3,
     // })
-    console.log(SliderPhotos, 'PHOTOS')
   }, [SliderPhotos])
 
   const fetchSliderPhotos = async () => {
@@ -63,11 +62,9 @@ const Home2 = () => {
       const responseData = await api.fetchData(url, options)
       if (responseData.status == 'success') {
         dispatch(setSliderPhotos(responseData.data))
-        console.log(responseData, 'News')
       } else {
         alert('დაფიქსირდა შეცდომა')
       }
-      console.log(responseData.data, 'News')
     } catch (error) {
       setError(error.message)
     }
@@ -93,7 +90,6 @@ const Home2 = () => {
       } else {
         alert('დაფიქსირდა შეცდომა')
       }
-      console.log(responseData.data, 'Services')
     } catch (error) {
       setError(error.message)
     }
@@ -119,7 +115,6 @@ const Home2 = () => {
       } else {
         alert('დაფიქსირდა შეცდომა')
       }
-      console.log(responseData.data, 'News')
     } catch (error) {
       setError(error.message)
     }

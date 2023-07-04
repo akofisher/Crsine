@@ -41,7 +41,6 @@ export default function App() {
         }
         const responseData = await api.fetchData(url, options)
         dispatch(setAbout(responseData.data))
-        console.log(responseData.data, 'Contact Info')
       } catch (error) {
         setError(error.message)
       }

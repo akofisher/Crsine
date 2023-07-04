@@ -33,7 +33,6 @@ const NewsMain = () => {
       } else {
         alert('დაფიქსირდა შეცდომა')
       }
-      console.log(responseData.data, 'News')
     } catch (error) {
       setError(error.message)
     }

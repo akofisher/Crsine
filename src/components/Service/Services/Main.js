@@ -29,7 +29,6 @@ const Services = () => {
       }
       const responseData = await api.fetchData(url, options)
       dispatch(setServices(responseData.data))
-      console.log(responseData.data, 'Services')
     } catch (error) {
       setError(error.message)
     }
@@ -75,8 +74,8 @@ const Services = () => {
             <div className="row">
               {services.length > 0
                 ? services.map((val, idx) => (
-                    <ServiceCard val={val} key={idx} />
-                  ))
+                  <ServiceCard val={val} key={idx} />
+                ))
                 : null}
             </div>
 

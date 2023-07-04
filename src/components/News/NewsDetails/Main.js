@@ -5,85 +5,81 @@ import BGPh1 from '../../../assets/images/backgrounds/page-header-bg-1-1.jpg'
 import api from '../../../useApiCall'
 
 const NewsDetails = () => {
-  const [news, setNews] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState('')
-  let id = localStorage.getItem('NewsId')
+    const [news, setNews] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState('')
+    let id = localStorage.getItem('NewsId')
 
-  const getNewsDetails = async () => {
-    setIsLoading(true)
+    const getNewsDetails = async () => {
+        setIsLoading(true)
 
-    try {
-      const url = API
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ApiMethod: 'GetNews',
-          controller: 'Services',
-          pars: {
-            NEWS_ID: id,
-          },
-        }),
-      }
-      const responseData = await api.fetchData(url, options)
-      // dispatch(setPackets(responseData.data))
-      console.log(responseData, 'news data')
-      if (responseData.status == 'success') {
-        setIsLoading(false)
-        setNews(responseData.data[0])
-        console.log(responseData, 'RESPONSE ABOUT')
-      } else {
-      }
-    } catch (error) {
-      setError(error.message)
-      console.log(error.message)
+        try {
+            const url = API
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ApiMethod: 'GetNews',
+                    controller: 'Services',
+                    pars: {
+                        NEWS_ID: id,
+                    },
+                }),
+            }
+            const responseData = await api.fetchData(url, options)
+            if (responseData.status == 'success') {
+                setIsLoading(false)
+                setNews(responseData.data[0])
+            } else {
+            }
+        } catch (error) {
+            setError(error.message)
+        }
     }
-  }
 
-  useEffect(() => {
-    getNewsDetails()
-  }, [id])
+    useEffect(() => {
+        getNewsDetails()
+    }, [id])
 
-  return (
-    <>
-      <div className="page-wrapper">
-        <div className="stricky-header stricked-menu main-menu">
-          <div className="sticky-header__content"></div>
-        </div>
-        <section className="page-header">
-          <div
-            className="page-header__bg"
-            style={{ backgroundImage: `url(${BGPh1})` }}
-          ></div>
-
-          <div className="container">
-            <h2>News Details</h2>
-            <ul className="thm-breadcrumb list-unstyled">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>/</li>
-              <li>
-                <span>News</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section className="blog-details">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12 col-lg-12">
-                <div className="blog-card__image blog-details__image">
-                  <div className="blog-card__date">18 Nov</div>
-                  <img src={news.NEWS_IMAGE} className="img-fluid" alt="" />
+    return (
+        <>
+            <div className="page-wrapper">
+                <div className="stricky-header stricked-menu main-menu">
+                    <div className="sticky-header__content"></div>
                 </div>
+                <section className="page-header">
+                    <div
+                        className="page-header__bg"
+                        style={{ backgroundImage: `url(${BGPh1})` }}
+                    ></div>
 
-                <div className="blog-details__content blog-card__content">
-                  {/* <div className="blog-card__date">
+                    <div className="container">
+                        <h2>News Details</h2>
+                        <ul className="thm-breadcrumb list-unstyled">
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>/</li>
+                            <li>
+                                <span>News</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section className="blog-details">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12 col-lg-12">
+                                <div className="blog-card__image blog-details__image">
+                                    <div className="blog-card__date">18 Nov</div>
+                                    <img src={news.NEWS_IMAGE} className="img-fluid" alt="" />
+                                </div>
+
+                                <div className="blog-details__content blog-card__content">
+                                    {/* <div className="blog-card__date">
                                         20 Jan
                                     </div>
                                     <ul className="list-unstyled blog-card__meta">
@@ -101,10 +97,10 @@ const NewsDetails = () => {
                                         </li>
                                     </ul> */}
 
-                  <h3 className="blog-card__title">{news.NEWS_NAME}</h3>
-                  <p>{news.NEWS_DESCRIPTION}</p>
-                </div>
-                {/* <div className="blog-details__meta">
+                                    <h3 className="blog-card__title">{news.NEWS_NAME}</h3>
+                                    <p>{news.NEWS_DESCRIPTION}</p>
+                                </div>
+                                {/* <div className="blog-details__meta">
                                     <p className="blog-details__tags"><span>Tags:</span><Link to="#">Car washing,</Link><Link to="#">Car
                                         washing</Link></p>
                                     <div className="blog-details__social">
@@ -114,7 +110,7 @@ const NewsDetails = () => {
                                         <Link to="#"><i className="fab fa-pinterest-p"></i></Link>
                                     </div>
                                 </div> */}
-                {/* <div className="blog-author">
+                                {/* <div className="blog-author">
                                     <div className="blog-author__image">
                                         <img src="assets/images/blog/blog-author-1-1.jpg" alt="" />
                                     </div>
@@ -159,7 +155,7 @@ const NewsDetails = () => {
                                         </div>
                                     </div>
                                 </div> */}
-                {/* <div className="comment-form">
+                                {/* <div className="comment-form">
                                     <h2>Leave a Comments</h2>
 
                                     <form action="assets/inc/sendemail.php" className="contact-one__form contact-form-validated">
@@ -185,9 +181,9 @@ const NewsDetails = () => {
                                         </div>
                                     </form>
                                 </div> */}
-              </div>
-              <div className="col-md-12 col-lg-4">
-                {/* <div className="blog-sidebar">
+                            </div>
+                            <div className="col-md-12 col-lg-4">
+                                {/* <div className="blog-sidebar">
                                     <div className="blog-sidebar__search">
                                         <form action="#">
                                             <input type="text" placeholder="Search" />
@@ -276,15 +272,15 @@ const NewsDetails = () => {
                                     </div>
 
                                 </div> */}
-              </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-          </div>
-        </section>
-      </div>
 
-      {/* <Link to="#" data-target="html" className="scroll-to-target scroll-to-top"><i className="fa fa-angle-up"></i></Link> */}
-    </>
-  )
+            {/* <Link to="#" data-target="html" className="scroll-to-target scroll-to-top"><i className="fa fa-angle-up"></i></Link> */}
+        </>
+    )
 }
 
 export default NewsDetails

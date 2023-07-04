@@ -59,7 +59,6 @@ const OnlineBooking = () => {
         (total, num) => Number(total) + Number(num.PRICE),
         0,
       )
-      console.log(sum + Number(ChoosenPacket.PRICE), 'SUM')
     } else {
       sum = 0
     }
@@ -84,14 +83,12 @@ const OnlineBooking = () => {
         (total, num) => Number(total) + Number(num.TIME),
         0,
       )
-      console.log(totalTime + Number(ChoosenPacket.TIME), 'TIME')
     }
   }
 
   const PlaceOrder = async () => {
     await SumPrice()
     await SumTime()
-    console.log(sum + Number(ChoosenPacket.PRICE), 'TOTAL')
     if (Number(ChoosenPacket.PRICE) > 0 && Number(ChoosenPacket.TIME) > 0) {
       try {
         const url = API
@@ -122,11 +119,9 @@ const OnlineBooking = () => {
         }
         const responseData = await api.fetchData(url, options)
         if (responseData.status == 'success') {
-          // nav(ORDER.replace(':id', responseData.data))
-          nav(ORDER)
-          console.log(responseData, 'YES')
+          nav(ORDER.replace(':id', responseData.data))
+          // nav(ORDER)
         } else {
-          console.log(responseData, 'No')
         }
       } catch (error) {
         setError(error.message)
@@ -135,35 +130,35 @@ const OnlineBooking = () => {
       alert('Please choose pricing plan')
     }
 
-    console.log(user, 'user')
-    console.log(email, 'email')
-    console.log(phone, 'phone')
-    console.log(brand, 'brand')
-    console.log(model, 'model')
-    console.log(time, 'time')
-    console.log(address, 'address')
-    console.log(mesage, 'mesage')
-    console.log(tabMenu.UID, 'car type')
-    console.log(ChoosenPacket, 'packet')
-    console.log(ChoosenSubPacket, 'sub Packet')
+    // console.log(user, 'user')
+    // console.log(email, 'email')
+    // console.log(phone, 'phone')
+    // console.log(brand, 'brand')
+    // console.log(model, 'model')
+    // console.log(time, 'time')
+    // console.log(address, 'address')
+    // console.log(mesage, 'mesage')
+    // console.log(tabMenu.UID, 'car type')
+    // console.log(ChoosenPacket, 'packet')
+    // console.log(ChoosenSubPacket, 'sub Packet')
   }
 
   const TotalPricetFunc = () => {
     if (Number(sum) > 0 && Number(ChoosenPacket.PRICE) > 0) {
       setTotalPrice(Number(sum) + Number(ChoosenPacket.PRICE))
-      console.log('pirveli')
+      // console.log('pirveli')
     } else if (Number(sum) <= 0 && Number(ChoosenPacket.PRICE) > 0) {
       setTotalPrice(Number(ChoosenPacket.PRICE))
-      console.log('meore')
+      // console.log('meore')
     } else if (Number(sum) <= 0 && Number(ChoosenPacket.PRICE) <= 0) {
       setTotalPrice(0)
-      console.log('mesame')
+      // console.log('mesame')
     } else if (Number(sum) > 0 && Number(ChoosenPacket.PRICE) <= 0) {
       setTotalPrice(Number(sum))
-      console.log('meotxe')
+      // console.log('meotxe')
     } else if (Number(sum) === NaN && Number(ChoosenPacket.PRICE) > 0) {
       setTotalPrice(Number(ChoosenPacket.PRICE))
-      console.log('mexute')
+      // console.log('mexute')
     } else {
       setTotalPrice(0)
     }

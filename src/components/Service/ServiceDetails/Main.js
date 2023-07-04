@@ -33,23 +33,20 @@ const ServiceDetails = () => {
       }
       const responseData = await api.fetchData(url, options)
       // dispatch(setPackets(responseData.data))
-      console.log(responseData, 'news data')
       if (responseData.status == 'success') {
         setIsLoading(false)
         setService(responseData.data[0])
-        console.log(responseData, 'RESPONSE ABOUT')
       } else {
       }
     } catch (error) {
       setError(error.message)
-      console.log(error.message)
     }
   }
 
   useEffect(() => {
     getServiceDetails()
   }, [id])
-  useEffect(() => {}, [CONTACT])
+  useEffect(() => { }, [CONTACT])
 
   return (
     <>

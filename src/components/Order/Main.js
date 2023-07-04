@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { API } from '../../API'
 import { selectAbout } from '../../Store/CarWash/CarWashSelector'
 import BGPh1 from '../../assets/images/backgrounds/page-header-bg-1-1.jpg'
@@ -12,7 +12,21 @@ const Order = () => {
   const [order, setOrder] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
-  let id = localStorage.getItem('ServiceId')
+  // const [tok, setTok] = useState('')
+  const { id } = useParams()
+
+  // const getLinkToken = () => {
+  //   let parts = window.location.href.split('/'); // Split the URL by '/'
+  //   let desiredString = parts[parts.length - 1];
+  //   setTok(desiredString)
+  //   console.log(window.location.href)
+  // }
+
+
+
+  // useEffect(() => {
+  //   console.log(tok, 'TOKEN FROM LINK')
+  // }, [tok])
 
   const getServiceDetails = async () => {
     setIsLoading(true)
@@ -28,25 +42,23 @@ const Order = () => {
           ApiMethod: 'GetOrderByToken',
           controller: 'Orders',
           pars: {
-            TOKEN: 'f5fff8b250bf3acef6fdb6016acd1d17',
+            TOKEN: id,
           },
         }),
       }
       const responseData = await api.fetchData(url, options)
-      console.log(responseData, 'before if else')
       if (responseData.status == 'success') {
         setOrder(responseData.data)
-        console.log(responseData, 'RESPONSE yes order')
       } else {
-        console.log(responseData, 'RESPONSE no order')
       }
     } catch (error) {
       setError(error.message)
-      console.log(error.message)
     }
   }
 
+
   useEffect(() => {
+    // getLinkToken()
     getServiceDetails()
   }, [])
 
@@ -122,10 +134,16 @@ const Order = () => {
                       <p className='orderDetailName'>Packet:</p>
                       <p className='orderDetails'>{val.PACKET_NAME}</p>
                     </div>
-                    <div className='orderDetailsRow'>
+                    <div className='orderDetailsRow' >
                       <p className='orderDetailName'>Extra Packet:</p>
-                      <p className='orderDetails'>{val.PACKET_NAME}</p>
+                      {val.SUB_PACKETS.length > 0 && val.SUB_PACKETS !== null ? (val.SUB_PACKETS.map((v, idx) => (
+                        <p className='orderDetails' key={idx}>{v.PACKET_NAME}</p>
+                      ))
+                      ) : (
+                        <p className='orderDetails'>Without extra services</p>
+                      )}
                     </div>
+
                     <div className='orderDetailsRow'>
                       <p className='orderDetailName'>Car Type:</p>
                       <p className='orderDetails'>{val.TYPE_NAME}</p>

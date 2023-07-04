@@ -14,10 +14,9 @@ export default function ExtraServiceCard({ data }) {
   const choosenOrNoo = useSelector(selectChoosenSubPacket)
   let isSubPack = choosenOrNoo.some((obj) => obj.SUB_PACKET_ID == data.UID)
   useEffect(() => {
-    console.log(choosenOrNoo, 'ORNO')
   }, [choosenOrNoo])
 
-  useEffect(() => {}, [CHOOSEN_PACKET])
+  useEffect(() => { }, [CHOOSEN_PACKET])
 
   return (
     <div className="online-booking__extra-item">
