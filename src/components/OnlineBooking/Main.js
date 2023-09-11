@@ -113,14 +113,19 @@ const OnlineBooking = () => {
               CHOOSEN_PACKET: ChoosenPacket.UID,
               CHOOSEN_SUB_PACKET: ChoosenSubPacket,
               ORDER_TOTAL_TIME: totalTime + Number(ChoosenPacket.TIME),
-              ORDER_TOTAL: sum + Number(ChoosenPacket.PRICE),
+              ORDER_TOTAL: sum + Number(ChoosenPacket.PRICE) + (sum + Number(ChoosenPacket.PRICE)) * 13 / 100,
             },
           }),
         }
         const responseData = await api.fetchData(url, options)
         if (responseData.status == 'success') {
-          nav(ORDER.replace(':id', responseData.data))
-          // nav(ORDER)
+          localStorage.setItem('orderId', responseData.data)
+          if (localStorage.getItem('orderId') !== null && localStorage.getItem('orderId') !== undefined && localStorage.getItem('orderId') !== NaN) {
+            nav(ORDER)
+          } else {
+            alert('Order is not placed ! Please try again')
+            nav('/')
+          }
         } else {
         }
       } catch (error) {
@@ -145,19 +150,19 @@ const OnlineBooking = () => {
 
   const TotalPricetFunc = () => {
     if (Number(sum) > 0 && Number(ChoosenPacket.PRICE) > 0) {
-      setTotalPrice(Number(sum) + Number(ChoosenPacket.PRICE))
+      setTotalPrice(Number(sum) + Number(ChoosenPacket.PRICE) + (Number(sum) + Number(ChoosenPacket.PRICE)) * 13 / 100)
       // console.log('pirveli')
     } else if (Number(sum) <= 0 && Number(ChoosenPacket.PRICE) > 0) {
-      setTotalPrice(Number(ChoosenPacket.PRICE))
+      setTotalPrice(Number(ChoosenPacket.PRICE) + (Number(ChoosenPacket.PRICE)) * 13 / 100)
       // console.log('meore')
     } else if (Number(sum) <= 0 && Number(ChoosenPacket.PRICE) <= 0) {
       setTotalPrice(0)
       // console.log('mesame')
     } else if (Number(sum) > 0 && Number(ChoosenPacket.PRICE) <= 0) {
-      setTotalPrice(Number(sum))
+      setTotalPrice(Number(sum) + Number(sum) * 13 / 100)
       // console.log('meotxe')
     } else if (Number(sum) === NaN && Number(ChoosenPacket.PRICE) > 0) {
-      setTotalPrice(Number(ChoosenPacket.PRICE))
+      setTotalPrice(Number(ChoosenPacket.PRICE) + Number(ChoosenPacket.PRICE) * 13 / 100)
       // console.log('mexute')
     } else {
       setTotalPrice(0)
@@ -290,6 +295,14 @@ const OnlineBooking = () => {
   useEffect(() => {
 
   }, [time, freeTimes])
+
+  useEffect(() => {
+    fetchTime()
+    const intervalId = setInterval(fetchTime, 1 * 60 * 1000)
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [])
 
 
   return (

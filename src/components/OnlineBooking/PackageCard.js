@@ -25,7 +25,6 @@ const PackageCard = ({ data }) => {
         <p className="price-card__amount">
           <span className="price-card__amount-symbol">$</span>
           {data.PACKET_PRICE}
-          <span className="price-card__amount-fraction">.99</span>
         </p>
         <div className="price-card__duration">
           <i className="far fa-clock"></i>

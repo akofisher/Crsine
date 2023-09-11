@@ -225,7 +225,7 @@ const Home2 = () => {
         />
         <div className="container">
           <div className="row flex-xl-row-reverse">
-            <div className="col-xl-6">
+            {/* <div className="col-xl-6">
               <div className="about-five__images">
                 <img
                   src="assets/images/resources/about-1-1.jpg"
@@ -241,7 +241,7 @@ const Home2 = () => {
                   data-wow-delay="100ms"
                 />
               </div>
-            </div>
+            </div> */}
             <div className="col-xl-6">
               <div className="about-five__content">
                 <div className="section-title">
@@ -261,7 +261,7 @@ const Home2 = () => {
                   <div className="about-five__progress-box">
                     <div
                       className="circle-progress"
-                      data-options='{ "value": 0.9,"thickness": 3,"emptyFill": "#eef3f7","lineCap": "square", "size": 120, "fill": { "color": "#3fbfef" } }'
+                      data-options='{ "value": 1,"thickness": 3,"emptyFill": "#eef3f7","lineCap": "square", "size": 120, "fill": { "color": "#3fbfef" } }'
                     ></div>
                     <span>100%</span>
                   </div>
@@ -273,7 +273,7 @@ const Home2 = () => {
                   <div className="about-five__progress-box">
                     <div
                       className="circle-progress"
-                      data-options='{ "value": 0.5,"thickness": 3,"emptyFill": "#eef3f7","lineCap": "square", "size": 120, "fill": { "color": "#3fbfef" } }'
+                      data-options='{ "value": 1,"thickness": 3,"emptyFill": "#eef3f7","lineCap": "square", "size": 120, "fill": { "color": "#3fbfef" } }'
                     ></div>
                     <span>100%</span>
                   </div>
@@ -292,7 +292,7 @@ const Home2 = () => {
           <div className="section-title text-center">
             <span className="section-title__tagline">What We’re Offering</span>
             <h2 className="section-title__title">
-              Services We’re Provding <br />
+              Services We’re Providing <br />
               to Customers
             </h2>
           </div>
@@ -309,20 +309,14 @@ const Home2 = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-6">
-              <div
+              {/* <div
                 className="about-four__image clearfix wow fadeInLeft"
                 data-wow-duration="1500ms"
                 data-wow-delay="0"
               >
                 <img src="assets/images/resources/about-4-1.jpg" alt="" />
-                {/* <div className="about-four__image-text">
-                                    Crsine is Certified Quality
-                                    Car Wash Company <br />
-                                    <Link to="/about">
-                                        Get Started
-                                    </Link>
-                                </div> */}
-              </div>
+          
+              </div> */}
             </div>
             <div className="col-xl-6">
               <div className="about-four__content">

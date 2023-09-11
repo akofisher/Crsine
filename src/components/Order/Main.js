@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { API } from '../../API'
 import { selectAbout } from '../../Store/CarWash/CarWashSelector'
 import BGPh1 from '../../assets/images/backgrounds/page-header-bg-1-1.jpg'
@@ -13,7 +13,8 @@ const Order = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
   // const [tok, setTok] = useState('')
-  const { id } = useParams()
+  const id = localStorage.getItem('orderId')
+  const nav = useNavigate()
 
   // const getLinkToken = () => {
   //   let parts = window.location.href.split('/'); // Split the URL by '/'
@@ -49,7 +50,9 @@ const Order = () => {
       const responseData = await api.fetchData(url, options)
       if (responseData.status == 'success') {
         setOrder(responseData.data)
-      } else {
+      } else if (responseData.status == 'Invalid token!') {
+        localStorage.removeItem('orderId')
+        nav('/')
       }
     } catch (error) {
       setError(error.message)
@@ -136,7 +139,7 @@ const Order = () => {
                     </div>
                     <div className='orderDetailsRow' >
                       <p className='orderDetailName'>Extra Packet:</p>
-                      {val.SUB_PACKETS.length > 0 && val.SUB_PACKETS !== null ? (val.SUB_PACKETS.map((v, idx) => (
+                      {val.SUB_PACKETS !== null && val.SUB_PACKETS.length > 0 && val.SUB_PACKETS !== null ? (val.SUB_PACKETS.map((v, idx) => (
                         <p className='orderDetails' key={idx}>{v.PACKET_NAME}</p>
                       ))
                       ) : (

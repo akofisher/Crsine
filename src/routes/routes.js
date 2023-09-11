@@ -1,1 +1,1 @@
-export const ORDER = '/order/:id'
+export const ORDER = '/order'
